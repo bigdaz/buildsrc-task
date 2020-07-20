@@ -1,0 +1,14 @@
+plugins {
+    id "com.gradle.enterprise" version "3.3.4"
+}
+gradleEnterprise {
+    server = "http://localhost"
+    buildScan {
+        publishAlways()
+        captureTaskInputFiles = true
+    }
+}
+
+rootProject.name = 'multiproj'
+include 'app'
+include 'lib'
