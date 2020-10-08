@@ -12,7 +12,7 @@ import org.gradle.api.tasks.TaskAction
 @CacheableTask
 public class IdlToJava extends DefaultTask {
     @InputFiles
-    @PathSensitive(PathSensitivity.RELATIVE)
+    //@PathSensitive(PathSensitivity.RELATIVE)
     FileCollection idlFiles
 
     @Classpath
