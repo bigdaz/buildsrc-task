@@ -1,6 +1,7 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'pmd'
 }
 
 repositories {
@@ -19,3 +20,9 @@ dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.13'
 }
+
+pmd {
+    ruleSets = []
+    ruleSetFiles rootProject.file("myRuleset.xml")
+}
+
