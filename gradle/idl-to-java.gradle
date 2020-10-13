@@ -1,6 +1,6 @@
 
 task idlToJava(type: IdlToJava) {
-    includes = ["ONE", "TWO"]
+    includes = ["${rootDir}/idl-includes/ONE", "${rootDir}/idl-includes/TWO"]
     jacorbClasspath = files("/path/to/jacorb.jar")
 
     outputDirectory = file("${buildDir}/idl/java")
