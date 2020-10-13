@@ -1,6 +1,6 @@
 
 task idlToJava(type: IdlToJava) {
-    includes = ["${rootDir}/idl-includes/ONE", "${rootDir}/idl-includes/TWO"]
+    includes = [relativePath("${rootDir}/idl-includes/ONE"), relativePath("${rootDir}/idl-includes/TWO")]
     jacorbClasspath = files("/path/to/jacorb.jar")
 
     outputDirectory = file("${buildDir}/idl/java")
@@ -55,6 +55,7 @@ public class IdlToJava extends DefaultTask {
             from idlFiles
             into outputDirectory
         }
+        println includes.collect {it}
         println idlFiles.collect {it.path}
         return
 
