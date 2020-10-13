@@ -1,6 +1,8 @@
 
 task idlToJava(type: IdlToJava) {
-    includes = [relativePath("${rootDir}/idl-includes/ONE"), relativePath("${rootDir}/idl-includes/TWO")]
+    include "${rootDir}/idl-includes/ONE"
+    include "${rootDir}/idl-includes/TWO"
+
     jacorbClasspath = files("/path/to/jacorb.jar")
 
     outputDirectory = file("${buildDir}/idl/java")
@@ -16,12 +18,17 @@ public class IdlToJava extends DefaultTask {
     @Classpath
     FileCollection jacorbClasspath
 
-    // We currently only consider the include _paths_ for cache key.
-    // This means that a change to a file within an include directory won't invalidate the cache.
-    // We should really be inspecting the contents of these dirs and invalidating cache if anything changes
-    // but this could be quite expensive, depending on how many files are in each
-    @Input
-    List<String> includes
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
+    FileCollection includedFiles = project.objects.fileCollection()
+
+    private List<String> includes = []
+
+    void include(String path) {
+        File includeDir = project.file(path)
+        includes << project.relativePath(includeDir)
+        includedFiles.from project.fileTree(includeDir)
+    }
 
     @OutputDirectory
     File outputDirectory
@@ -56,6 +63,7 @@ public class IdlToJava extends DefaultTask {
             into outputDirectory
         }
         println includes.collect {it}
+        println includedFiles.collect {it.path}
         println idlFiles.collect {it.path}
         return
 
