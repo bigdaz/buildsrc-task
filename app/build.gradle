@@ -27,13 +27,10 @@ application {
     mainClassName = 'app.App'
 }
 
-task idlToJava(type: IdlToJava) {
-    idlFiles = project.files(
+// Declare and instantiate the IdlToJava task with shared config
+apply from: '../gradle/idl-to-java.gradle'
+
+// Project-specific config goes here
+idlToJava.idlFiles = project.files(
             "${projectDir}/src/idl/TestX.idl",
             "${projectDir}/src/idl/TestY.idl")
-
-    includes = ["ONE", "TWO"]
-    jacorbClasspath = files("/path/to/jacorb.jar")
-
-    outputDirectory = file("${buildDir}/idl/java")
-}
