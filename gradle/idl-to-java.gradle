@@ -10,7 +10,7 @@ task idlToJava(type: IdlToJava) {
 @CacheableTask
 public class IdlToJava extends DefaultTask {
     @InputFiles
-    //@PathSensitive(PathSensitivity.RELATIVE)
+    @PathSensitive(PathSensitivity.RELATIVE)
     FileCollection idlFiles
 
     @Classpath
